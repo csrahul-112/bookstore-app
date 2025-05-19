@@ -1,0 +1,45 @@
+# Java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# IntelliJ / VS Code / Eclipse / NetBeans
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+*.bak
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Environment & secret files
+.env
+*.env
+application.properties
+application.yml
+
+# H2 Database file (optional, in case you switch to file-based)
+*.h2.db
+
+# Other
+node_modules/
