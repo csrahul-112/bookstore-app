@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="layout :: head"></head>
 
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script src="/js/chatbot.js"></script>
 <body>
 	<nav th:replace="layout :: header"></nav>
 
@@ -80,6 +82,15 @@
 				</div>
 			</th:block>
 		</div>
+	</div>
+	<!-- Chat Widget -->
+	<div id="chat-container">
+	<div id="chat-header">🧠 Literati</div>
+	<div id="chat-messages"></div>
+	<div id="typing-indicator">BookGenie is typing<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+	<div id="chat-input-area">
+		<input type="text" id="chat-input" placeholder="Ask me about books..." />
+	</div>
 	</div>
 
 </body>
