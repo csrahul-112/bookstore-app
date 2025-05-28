@@ -2,6 +2,7 @@ package com.crni99.bookstore.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -60,7 +62,8 @@ public class Book {
 	}
 	@Column(name = "image_url")
     private String imageUrl;
-	
+	@Column(nullable = true)
+	private Double rating; // e.g. from 0.0 to 5.0
 
 	public Book() {
 	}
@@ -131,6 +134,10 @@ public class Book {
 	public void setPublishedOn(LocalDate publishedOn) {
 		this.publishedOn = publishedOn;
 	}
+	@Column(name = "created_at", updatable = false)
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+
 
 	@Override
 	public String toString() {
@@ -166,6 +173,13 @@ public class Book {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
 	}
 
 }

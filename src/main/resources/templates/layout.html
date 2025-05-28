@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:fragment="head">
@@ -44,41 +45,128 @@
 </head>
 
 <body>
+<div th:if="${#lists.isEmpty(categories)}">
+  <p style="color:red;">No categories found!</p>
+</div>
+<div th:unless="${#lists.isEmpty(categories)}">
+  <p style="color:green;">Categories loaded successfully!</p>
+</div>
 
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-2">
   <div class="container">
-    <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Logo" style="height:32px;"> BookStore</a>
-    <form class="form-inline mx-auto w-50" th:action="@{/search}" method="get">
-      <div class="input-group w-100">
-        <div class="input-group-prepend">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-            Categories
-          </button>
-          <div class="dropdown-menu">
+    <!-- Logo and Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/logo.png" alt="Logo" style="height:40px; margin-right: 10px;">
+      <span class="font-weight-bold" style="font-size:1.4rem; letter-spacing:0.02em;">BookStore</span>
+    </a>
+
+    <!-- Hamburger for mobile -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarModern" aria-controls="navbarModern" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarModern">
+      <!-- Navigation links (centered, optional) -->
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-th-large"></i> Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
             <a class="dropdown-item" th:each="cat : ${categories}" th:href="@{/books(category=${cat.name})}" th:text="${cat.name}"></a>
           </div>
-        </div>
-        <input class="form-control" type="search" name="term" placeholder="Search books, authors, ISBN..." aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-      </div>
-    </form>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i></a></li>
-      <li class="nav-item"><a class="nav-link" href="/orders"><i class="fa fa-list-ul"></i></a></li>
-      <li class="nav-item"><a class="nav-link" href="/login"><i class="fa fa-user"></i></a></li>
-    </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/new-arrivals" th:href="@{/new-arrivals}"><i class="fa fa-star"></i> New Arrivals</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/best-sellers" th:href="@{/best-sellers}"><i class="fa fa-fire"></i> Best Sellers</a>
+        </li>
+      </ul>
+
+      <!-- Search bar (modern style) -->
+				<form class="form-inline my-2 my-lg-0 mx-lg-2 w-100"
+					style="max-width: 350px;" th:action="@{/search}" method="get">
+					<div class="input-group w-100 position-relative">
+						<input class="form-control search-input" type="search" name="term"
+							placeholder="Search books, authors, ISBN..." aria-label="Search">
+						<button class="btn btn-danger search-btn" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</form>
+
+
+
+
+
+		<!-- Icon links (right-aligned) -->
+      <ul class="navbar-nav ml-lg-3 d-flex flex-row align-items-center">
+        <li class="nav-item mx-2">
+          <a class="nav-link position-relative" href="/cart" th:href="@{/cart}">
+            <i class="fa fa-shopping-cart fa-lg"></i>
+            <!-- Optional: cart badge -->
+            <span th:if="${cartCount > 0}" class="badge badge-danger position-absolute" style="top:0; right:0; font-size:0.8em;" th:text="${cartCount}"></span>
+          </a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" href="/orders" th:href="@{/orders}">
+            <i class="fa fa-list-ul fa-lg"></i>
+          </a>
+        </li>
+        <li class="nav-item mx-2">
+          <a class="nav-link" href="/login" th:href="@{/login}">
+            <i class="fa fa-user fa-lg"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
 
+
 	<h1>Main content</h1>
 
-	<footer th:fragment="footer" class="container" style="padding: 50px;">
-		<strong>&copy; <a href="#"
-			>Online Book Store</a></strong>
-	</footer>
+	<footer th:fragment="footer" class="bg-dark text-light pt-5 mt-5">
+  <div class="container">
+    <div class="row">
+
+      <!-- About -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-warning">About BookStore</h5>
+        <p>BookStore is your trusted destination for the latest arrivals, best sellers, and timeless literary classics across all genres. We aim to deliver books with care and passion.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-warning">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" th:href="@{/}" class="text-light">Home</a></li>
+          <li><a href="/categories" th:href="@{/categories}" class="text-light">Categories</a></li>
+          <li><a href="/new-arrivals" th:href="@{/new-arrivals}" class="text-light">New Arrivals</a></li>
+          <li><a href="/best-sellers" th:href="@{/best-sellers}" class="text-light">Best Sellers</a></li>
+          <li><a href="/contact" th:href="@{/contact}" class="text-light">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-4 mb-4">
+        <h5 class="text-warning">Contact</h5>
+        <p>Email: <a href="mailto:support@bookstore.com" class="text-light">support@bookstore.com</a></p>
+        <p>Phone: +1 (123) 456-7890</p>
+        <p>Location: 123 Book Street, Library City, Earth</p>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4 border-top pt-3">
+      <p class="mb-0">&copy; 2025 <strong>BookStore</strong>. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
 
 </body>
 </html>

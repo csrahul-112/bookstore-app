@@ -41,6 +41,27 @@ public class HomeController {
 		}
 		return page(term, model, page, size);
 	}
+	@GetMapping("/new-arrivals")
+	public String showNewArrivals(Model model) {
+	    model.addAttribute("books", bookService.findNewArrivals());
+	    model.addAttribute("title", "New Arrivals");
+	    return "books-grid";
+	}
+
+	@GetMapping("/best-sellers")
+	public String showBestSellers(Model model) {
+	    model.addAttribute("books", bookService.findBestSellers());
+	    model.addAttribute("title", "Best Sellers");
+	    return "books-grid";
+	}
+	@GetMapping("/books")
+	public String booksByCategory(@RequestParam("category") String categoryName, Model model) {
+	    List<Book> books = bookService.findByCategoryName(categoryName);
+	    model.addAttribute("books", books);
+	    model.addAttribute("title", categoryName);
+	    return "books-grid";
+	}
+
 
 	private String page(@RequestParam("term") String term, Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("size") Optional<Integer> size) {
@@ -60,7 +81,12 @@ public class HomeController {
 		if (totalPages > 0) {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
 			model.addAttribute("pageNumbers", pageNumbers);
-		}
+		}	
+		// ✅ Add dynamic sections to model
+		model.addAttribute("recommendedBooks", bookService.getRecommendedBooks());
+		model.addAttribute("newArrivals", bookService.findNewArrivals());
+		model.addAttribute("bestSellers", bookService.findBestSellers());
+		
 		return "index";
 	}
 }

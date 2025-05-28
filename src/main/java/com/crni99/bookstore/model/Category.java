@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="categories")
 public class Category {
@@ -33,5 +34,7 @@ public class Category {
 		this.name = name;
 	}
 	
+	
 
 }
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container mt-4">
+		<h3 th:text="${title}"></h3>
+		<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="col" th:each="book : ${books}">
+				<div class="card h-100">
+					<img th:src="${book.imageUrl}" class="card-img-top"
+						th:alt="${book.name}">
+					<div class="card-body d-flex flex-column">
+						<h5 class="card-title" th:text="${book.name}"></h5>
+						<p class="card-text" th:text="${book.authors}"></p>
+						<p class="price"
+							th:text="'₹' + ${#numbers.formatDecimal(book.price, 1, 2)}"></p>
+
+						<span th:if="${book.stock > 0}"
+							class="badge badge-success mt-auto">In Stock</span> <span
+							th:if="${book.stock == 0}" class="badge badge-danger mt-auto">Out
+							of Stock</span>
+					</div>
+					<div class="card-footer text-center">
+						<a th:href="@{/cart/add/{id}(id=${book.id})}"
+							class="btn btn-sm btn-primary" th:if="${book.stock > 0}">Add
+							to Cart</a>
+						<button class="btn btn-sm btn-secondary" disabled
+							th:if="${book.stock == 0}">Out of Stock</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

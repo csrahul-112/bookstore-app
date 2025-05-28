@@ -13,14 +13,24 @@ import com.crni99.bookstore.model.Category;
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-	@Query(value = "SELECT * FROM books WHERE name LIKE %:term%", nativeQuery = true)
-	List<Book> findByNameContaining(@Param("term") String term);
+	@Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :term, '%')) OR LOWER(b.authors) LIKE LOWER(CONCAT('%', :term, '%'))")
+	List<Book> searchBooks(@Param("term") String term);
+
 	
 	List<Book> findByCategory(Category category);
 	
 	List<Book> findByCategory_Id(Long categoryId);
 	
 	List<Book> findByStockGreaterThan(int stock);
+	
+	@Query(value = "SELECT * FROM books ORDER BY rating DESC LIMIT 6", nativeQuery = true)
+	List<Book> findTopRatedBooks();
+
+	@Query(value = "SELECT * FROM books ORDER BY created_at DESC LIMIT 8", nativeQuery = true)
+	List<Book> findNewArrivals();
+
+	List<Book> findTop6ByOrderByRatingDesc(); // You must have a `rating` field in Book
+
 
 
 
