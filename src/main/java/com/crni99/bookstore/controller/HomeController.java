@@ -41,6 +41,7 @@ public class HomeController {
 		}
 		return page(term, model, page, size);
 	}
+
 	@GetMapping("/new-arrivals")
 	public String showNewArrivals(Model model) {
 	    model.addAttribute("books", bookService.findNewArrivals());
@@ -63,6 +64,7 @@ public class HomeController {
 	}
 
 
+
 	private String page(@RequestParam("term") String term, Model model, @RequestParam("page") Optional<Integer> page,
 			@RequestParam("size") Optional<Integer> size) {
 		int currentPage = page.orElse(1);
@@ -81,12 +83,14 @@ public class HomeController {
 		if (totalPages > 0) {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
 			model.addAttribute("pageNumbers", pageNumbers);
+
 		}	
 		// ✅ Add dynamic sections to model
 		model.addAttribute("recommendedBooks", bookService.getRecommendedBooks());
 		model.addAttribute("newArrivals", bookService.findNewArrivals());
 		model.addAttribute("bestSellers", bookService.findBestSellers());
 		
+
 		return "index";
 	}
 }

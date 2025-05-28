@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.crni99.bookstore.model.Book;
 import com.crni99.bookstore.model.Category;
 
+
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
+
 
 	@Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :term, '%')) OR LOWER(b.authors) LIKE LOWER(CONCAT('%', :term, '%'))")
 	List<Book> searchBooks(@Param("term") String term);

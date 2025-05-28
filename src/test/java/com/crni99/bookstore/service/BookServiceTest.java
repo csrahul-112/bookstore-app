@@ -49,11 +49,13 @@ class BookServiceTest {
 		Book book2 = new Book(ID_2, NAME_2, PRICE_2, AUTHORS_2, ISBN_2, PUBLISHER_2, DOB_2);
 		ArrayList<Book> books = new ArrayList<>(Arrays.asList(book1, book2));
 
+
 		verify(bookRepository).searchBooks(term);
 
 		Page<Book> bookPage = bookService.findPaginated(pageable, term);
 
 		verify(bookRepository).searchBooks(term);
+
 		assertThat(bookPage.getTotalElements()).isEqualTo(2);
 		assertThat(bookPage.getContent()).containsExactly(book1, book2);
 	}

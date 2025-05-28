@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +15,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.crni99.bookstore.model.Book;
+
 import com.crni99.bookstore.model.Category;
 import com.crni99.bookstore.repository.BookRepository;
 import com.crni99.bookstore.repository.CategoryRepository;
+
 
 @Service
 public class BookService {
@@ -25,6 +29,7 @@ public class BookService {
 	public BookService(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 	}
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -35,6 +40,7 @@ public class BookService {
 	    }
 	    return bookRepository.findByCategory(category);
 	}
+
 
 	public Page<Book> findPaginated(Pageable pageable, String term) {
 
@@ -52,7 +58,9 @@ public class BookService {
 		if (term == null) {
 			books = (ArrayList<Book>) bookRepository.findAll();
 		} else {
+
 			books = (ArrayList<Book>) bookRepository.searchBooks(term);
+
 		}
 
 		if (books.size() < startItem) {
@@ -75,6 +83,7 @@ public class BookService {
 		Optional<Book> book = bookRepository.findById(id);
 		return book;
 	}
+
 	public List<Book> findByCategory(Category category) {
 	    return bookRepository.findByCategory(category);
 	}
@@ -89,6 +98,7 @@ public class BookService {
 	public List<Book> findBestSellers() {
 	    return bookRepository.findTopRatedBooks(); // Based on rating DESC
 	}
+
 
 
 

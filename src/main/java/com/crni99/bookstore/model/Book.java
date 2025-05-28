@@ -2,21 +2,27 @@ package com.crni99.bookstore.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+
 import org.hibernate.annotations.CreationTimestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -53,7 +59,7 @@ public class Book {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "{book.date.notNull}")
 	private LocalDate publishedOn;
-	
+
 	@Column(name = "stock", nullable = false)
 	private Integer stock;
 
@@ -64,6 +70,7 @@ public class Book {
     private String imageUrl;
 	@Column(nullable = true)
 	private Double rating; // e.g. from 0.0 to 5.0
+
 
 	public Book() {
 	}
@@ -134,9 +141,11 @@ public class Book {
 	public void setPublishedOn(LocalDate publishedOn) {
 		this.publishedOn = publishedOn;
 	}
+
 	@Column(name = "created_at", updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
+
 
 
 	@Override
@@ -144,6 +153,7 @@ public class Book {
 		return "Book [id=" + id + ", name=" + name + ", price=" + price + ", authors=" + authors + ", isbn=" + isbn
 				+ ", publisher=" + publisher + ", publishedOn=" + publishedOn + "]";
 	}
+
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -181,5 +191,6 @@ public class Book {
 	public void setRating(Double rating) {
 		this.rating = rating;
 	}
+
 
 }
