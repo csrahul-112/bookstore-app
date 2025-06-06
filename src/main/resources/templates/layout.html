@@ -28,6 +28,8 @@
 <!-- Custom style -->
 <link href="../static/css/style.css" th:href="@{/css/style.css}"
 	rel="stylesheet" />
+<link href="../static/css/chatbot.css" th:href="@{/css/chatbot.css}"
+	rel="stylesheet" />
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -45,14 +47,12 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <div th:if="${#lists.isEmpty(categories)}">
   <p style="color:red;">No categories found!</p>
 </div>
 <div th:unless="${#lists.isEmpty(categories)}">
   <p style="color:green;">Categories loaded successfully!</p>
 </div>
-
 
 <nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-2">
   <div class="container">
@@ -167,7 +167,22 @@
   </div>
 </footer>
 
-
+<!-- Chat Widget -->
+<div id="chat-container">
+	<div id="chat-header">🧠 BookGenie</div>
+	<div id="chat-messages"></div>
+	<div id="typing-indicator">BookGenie is typing<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+	<div id="chat-input-area">
+		<input type="text" id="chat-input" placeholder="Ask me about books..." />
+		<button id="chat-send-button" aria-label="Send message">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<line x1="22" y1="2" x2="11" y2="13"></line>
+				<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+			</svg>
+		</button>
+	</div>
+</div>
+<script src="../static/chatbot/chatbot.js" th:src="@{/chatbot/chatbot.js}"></script>
 </body>
 </html>
 
